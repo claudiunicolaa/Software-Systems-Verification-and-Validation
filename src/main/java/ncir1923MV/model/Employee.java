@@ -35,6 +35,7 @@ public class Employee {
      * Default constructor for employee
      */
     public Employee() {
+        this.firstName = "";
         this.lastName = "";
         this.cnp = "";
         this.function = DidacticFunction.ASISTENT;
@@ -44,7 +45,8 @@ public class Employee {
     /**
      * Constructor with fields for employee
      */
-    public Employee(String lastName, String cnp, DidacticFunction function, String salary) {
+    public Employee(String firstName, String lastName, String cnp, DidacticFunction function, String salary) {
+        this.firstName = firstName;
         this.lastName = lastName;
         this.cnp = cnp;
         this.function = function;
@@ -174,17 +176,18 @@ public class Employee {
             throw new EmployeeException("Invalid line at: " + line);
         } else {
             EmployeeValidator validator = new EmployeeValidator();
-            employee.setLastName(attributes[1]);
-            employee.setCnp(attributes[2]);
+            employee.setFirstName(attributes[1]);
+            employee.setLastName(attributes[2]);
+            employee.setCnp(attributes[3]);
 
-            if (attributes[3].equals("ASISTENT"))
+            if (attributes[4].equals("ASISTENT"))
                 employee.setFunction(DidacticFunction.ASISTENT);
-            if (attributes[3].equals("LECTURER"))
+            if (attributes[4].equals("LECTURER"))
                 employee.setFunction(DidacticFunction.LECTURER);
-            if (attributes[3].equals("TEACHER"))
+            if (attributes[4].equals("TEACHER"))
                 employee.setFunction(DidacticFunction.TEACHER);
 
-            employee.setSalary(attributes[4]);
+            employee.setSalary(attributes[5]);
 
             if (!validator.isValid(employee)) {
                 throw new EmployeeException("Invalid line at: " + line);
