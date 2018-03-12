@@ -186,6 +186,10 @@ public class Employee {
                 employee.setFunction(DidacticFunction.LECTURER);
             if (attributes[4].equals("TEACHER"))
                 employee.setFunction(DidacticFunction.TEACHER);
+            if (attributes[4].equals("PHD"))
+                employee.setFunction(DidacticFunction.PHD);
+            if (attributes[4].equals("CAD"))
+                employee.setFunction(DidacticFunction.CAD);
 
             employee.setSalary(attributes[5]);
 
