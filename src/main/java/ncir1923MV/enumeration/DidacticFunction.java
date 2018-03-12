@@ -1,5 +1,5 @@
 package ncir1923MV.enumeration;
 
 public enum DidacticFunction {
-    ASISTENT, LECTURER, TEACHER;
+    ASISTENT, LECTURER, TEACHER, PHD, CAD;
 }
