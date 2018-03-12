@@ -140,6 +140,7 @@ public class Employee {
     public String toString() {
         String employee = "";
 
+        employee += firstName + ";";
         employee += lastName + ";";
         employee += cnp + ";";
         employee += function.toString() + ";";
@@ -176,22 +177,22 @@ public class Employee {
             throw new EmployeeException("Invalid line at: " + line);
         } else {
             EmployeeValidator validator = new EmployeeValidator();
-            employee.setFirstName(attributes[1]);
-            employee.setLastName(attributes[2]);
-            employee.setCnp(attributes[3]);
+            employee.setFirstName(attributes[0]);
+            employee.setLastName(attributes[1]);
+            employee.setCnp(attributes[2]);
 
-            if (attributes[4].equals("ASISTENT"))
+            if (attributes[3].equals("ASISTENT"))
                 employee.setFunction(DidacticFunction.ASISTENT);
-            if (attributes[4].equals("LECTURER"))
+            if (attributes[3].equals("LECTURER"))
                 employee.setFunction(DidacticFunction.LECTURER);
-            if (attributes[4].equals("TEACHER"))
+            if (attributes[3].equals("TEACHER"))
                 employee.setFunction(DidacticFunction.TEACHER);
-            if (attributes[4].equals("PHD"))
+            if (attributes[3].equals("PHD"))
                 employee.setFunction(DidacticFunction.PHD);
-            if (attributes[4].equals("CAD"))
+            if (attributes[3].equals("CAD"))
                 employee.setFunction(DidacticFunction.CAD);
 
-            employee.setSalary(attributes[5]);
+            employee.setSalary(attributes[4]);
 
             if (!validator.isValid(employee)) {
                 throw new EmployeeException("Invalid line at: " + line);
@@ -200,5 +201,4 @@ public class Employee {
 
         return employee;
     }
-
 }

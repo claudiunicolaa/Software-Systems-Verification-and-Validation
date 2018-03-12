@@ -1,9 +1,13 @@
 package ncir1923MV.controller;
 
+import ncir1923MV.exception.EmployeeException;
 import ncir1923MV.model.Employee;
 import ncir1923MV.repository.interfaces.EmployeeRepositoryInterface;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class EmployeeController {
 
@@ -21,12 +25,19 @@ public class EmployeeController {
         return employeeRepository.getEmployeeList();
     }
 
-    public void modifyEmployee(Employee oldEmployee, Employee newEmployee) {
+    public void modifyEmployee(Employee oldEmployee, Employee newEmployee) throws EmployeeException {
         employeeRepository.modifyEmployee(oldEmployee, newEmployee);
     }
 
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) throws EmployeeException {
         employeeRepository.deleteEmployee(employee);
     }
 
+    public List<Employee> getOrderedEmployees(String column) {
+        return employeeRepository.getEmployeeByCriteria(column);
+    }
+
+    public Employee searchByCnp(String cnp) throws EmployeeException {
+        return employeeRepository.getEmployeeByCnp(cnp);
+    }
 }

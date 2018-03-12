@@ -75,7 +75,15 @@ public class EmployeeView {
             e.printStackTrace();
         }
 
-        System.out.print("\nLast name: ");
+        Employee oldEmployee = null;
+        try {
+            oldEmployee = employeeController.searchByCnp(cnp);
+        } catch (EmployeeException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+
+        System.out.print("\nFirst name: ");
         try {
             newFistName = br.readLine();
         } catch (IOException e) {
@@ -95,7 +103,7 @@ public class EmployeeView {
             e.printStackTrace();
         }
 
-        System.out.print("\nFunction 1-Asistent, 2-Lecturer, 3-Teacher, 4-Phd: ");
+        System.out.print("\nFunction 1-Asistent, 2-Lecturer, 3-Teacher, 4-Phd, 5-CAD: ");
         try {
             functionId = br.readLine();
             switch (functionId) {
@@ -111,6 +119,14 @@ public class EmployeeView {
                     function = DidacticFunction.TEACHER;
                     break;
                 }
+                case "4": {
+                    function = DidacticFunction.PHD;
+                    break;
+                }
+                case "5": {
+                    function = DidacticFunction.CAD;
+                    break;
+                }
                 default: {
                     System.err.println("Nu ati introdus o functie valida, reincercati!");
                     return;
@@ -120,43 +136,30 @@ public class EmployeeView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print("\nSalary: ");
-        try {
-            newSalary = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        Employee oldEmployee = null;
-        try {
-            oldEmployee = employeeController.searchByCnp(cnp);
-        } catch (EmployeeException e) {
-            e.printStackTrace();
-        }
         Employee newEmployee = new Employee(newFistName, newLastName, cnp, function, newSalary);
-        employeeController.modifyEmployee(oldEmployee, newEmployee);
+        try {
+            employeeController.modifyEmployee(oldEmployee, newEmployee);
+        } catch (EmployeeException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
     }
 
     private void deleteEmployee() {
-        String lastName = null, cnp = null;
+        String cnp = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Last name: ");
-        try {
-            lastName = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         System.out.print("CNP: ");
         try {
             cnp = br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         try {
             employeeController.deleteEmployee(employeeController.searchByCnp(cnp));
         } catch (EmployeeException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
@@ -183,7 +186,7 @@ public class EmployeeView {
             e.printStackTrace();
         }
 
-        System.out.print("\nFunction 1-Asistent, 2-Lecturer, 3-Teacher: ");
+        System.out.print("\nFunction 1-Asistent, 2-Lecturer, 3-Teacher, 4-Phd, 5-CAD: ");
         try {
             function_id = br.readLine();
             switch (function_id) {
@@ -197,6 +200,14 @@ public class EmployeeView {
                 }
                 case "3": {
                     function = DidacticFunction.TEACHER;
+                    break;
+                }
+                case "4": {
+                    function = DidacticFunction.PHD;
+                    break;
+                }
+                case "5": {
+                    function = DidacticFunction.CAD;
                     break;
                 }
 

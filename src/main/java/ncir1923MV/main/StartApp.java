@@ -3,6 +3,7 @@ package ncir1923MV.main;
 import ncir1923MV.controller.EmployeeController;
 import ncir1923MV.enumeration.DidacticFunction;
 import ncir1923MV.model.Employee;
+import ncir1923MV.repository.implementations.EmployeeImpl;
 import ncir1923MV.repository.interfaces.EmployeeRepositoryInterface;
 import ncir1923MV.repository.mock.EmployeeMock;
 import ncir1923MV.validator.EmployeeValidator;
@@ -16,7 +17,8 @@ public class StartApp {
 
     public static void main(String[] args) {
 
-        EmployeeRepositoryInterface employeesRepository = new EmployeeMock();
+//        EmployeeRepositoryInterface employeesRepository = new EmployeeMock();
+        EmployeeRepositoryInterface employeesRepository = new EmployeeImpl();
         EmployeeController employeeController = new EmployeeController(employeesRepository);
         EmployeeView employeeView = new EmployeeView(employeeController);
         employeeView.start();
