@@ -18,7 +18,7 @@ public class EmployeeFieldsTest {
     @Before
     public void setUp() {
         employeeValidator = new EmployeeValidator();
-        employee = new Employee("Ardelean", "1234567891234", DidacticFunction.ASISTENT, "1234");
+        employee = new Employee("Andrei", "Ardelean", "1234567891234", DidacticFunction.ASISTENT, "1234");
     }
 
     @Test
