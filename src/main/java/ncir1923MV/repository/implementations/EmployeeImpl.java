@@ -148,4 +148,14 @@ public class EmployeeImpl implements EmployeeRepositoryInterface {
         throw new EmployeeException("Angajatul nu exista");
     }
 
+    public Employee getEmployeeByCNP(String cnp) {
+        List<Employee> employeeList = this.getEmployeeList();
+        for (Employee _employee : employeeList) {
+            if (_employee.getCnp().equals(cnp)) {
+                return _employee;
+            }
+        }
+        return null;
+    }
+
 }
