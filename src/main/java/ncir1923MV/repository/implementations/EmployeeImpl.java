@@ -7,6 +7,9 @@ import ncir1923MV.repository.interfaces.EmployeeRepositoryInterface;
 import ncir1923MV.validator.EmployeeValidator;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class EmployeeImpl implements EmployeeRepositoryInterface {
@@ -85,8 +88,23 @@ public class EmployeeImpl implements EmployeeRepositoryInterface {
 
     @Override
     public void modifyEmployee(Employee oldEmployee, Employee newEmployee) throws EmployeeException {
-        deleteEmployee(oldEmployee);
-        addEmployee(newEmployee);
+        File inputFile = new File(employeeDBFile);
+        Path path = inputFile.toPath();
+        List<String> fileContent = null;
+        try {
+            fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldEmployee.toString())) {
+                    fileContent.set(i, newEmployee.toString());
+                    break;
+                }
+            }
+
+            Files.write(path, fileContent, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
