@@ -97,11 +97,10 @@ public class EmployeeImpl implements EmployeeRepositoryInterface {
             for (int i = 0; i < fileContent.size(); i++) {
                 if (fileContent.get(i).equals(oldEmployee.toString())) {
                     fileContent.set(i, newEmployee.toString());
+                    Files.write(path, fileContent, StandardCharsets.UTF_8);
                     break;
                 }
             }
-
-            Files.write(path, fileContent, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

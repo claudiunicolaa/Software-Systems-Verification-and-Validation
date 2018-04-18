@@ -21,11 +21,11 @@ public class RepositoryTestReq2_WBT {
 
     @org.junit.Test
     public void testModifyEmployeeTest1() throws Exception {
-        String nume = "Ionescu";
-        String prenume = "Andrei";
-        String cnp = "1934567890123";
-        DidacticFunction function = DidacticFunction.ASISTENT;
-        String salariu = "2546";
+        String nume = "Dan";
+        String prenume = "Dumitru";
+        String cnp = "1950210014673";
+        DidacticFunction function = DidacticFunction.LECTURER;
+        String salariu = "8000";
         Employee employee = new Employee(nume, prenume, cnp, function, salariu);
         Employee newemployee = new Employee(nume, prenume, cnp, function, "986");
         Employee findEmployee = employeeImpl.getEmployeeByCNP(cnp);
@@ -38,11 +38,11 @@ public class RepositoryTestReq2_WBT {
 
     @org.junit.Test
     public void testModifyEmployeeTest2() throws Exception {
-        String nume = "Ionescu";
-        String prenume = "Andrei";
-        String cnp = "1934567890123";
-        DidacticFunction function = DidacticFunction.ASISTENT;
-        String salariu = "2546";
+        String nume = "Dan";
+        String prenume = "Dumitru";
+        String cnp = "1950210014673";
+        DidacticFunction function = DidacticFunction.LECTURER;
+        String salariu = "8000";
         Employee oldEmployee = new Employee(nume, prenume, cnp, function, salariu);
 
         Employee newEmployee = new Employee("Ed", prenume, cnp, function, salariu);
@@ -53,17 +53,16 @@ public class RepositoryTestReq2_WBT {
             Assert.assertEquals(ex.getMessage(), "Employee it's not valid");
 
         }
-
     }
 
     @org.junit.Test
     public void testModifyEmployeeTest3() throws Exception {
-        String nume = "Voicu";
-        String prenume = "Andrei";
-        String cnp = "1984567890123";
-        DidacticFunction function = DidacticFunction.ASISTENT;
-        DidacticFunction newfunction = DidacticFunction.LECTURER;
-        String salariu = "2546";
+        String nume = "Dan";
+        String prenume = "Dumitru";
+        String cnp = "1950210014673";
+        DidacticFunction function = DidacticFunction.LECTURER;
+        DidacticFunction newfunction = DidacticFunction.ASISTENT;
+        String salariu = "8000";
         Employee oldEmployee = new Employee(nume, prenume, cnp, function, salariu);
 
         Employee newEmployee = new Employee(nume, prenume, "0000000000000", newfunction, salariu);
@@ -74,6 +73,5 @@ public class RepositoryTestReq2_WBT {
             Assert.assertEquals(ex.getMessage(), "Employee doesn't exist!");
 
         }
-
     }
 }
