@@ -14,8 +14,15 @@ import java.util.*;
 
 public class EmployeeImpl implements EmployeeRepositoryInterface {
 
-    private final String employeeDBFile = "employeeDB/employees.txt";
+    private String employeeDBFile = "employeeDB/employees.txt";
     private EmployeeValidator employeeValidator = new EmployeeValidator();
+
+    public EmployeeImpl() {
+    }
+
+    public EmployeeImpl(String file) {
+        this.employeeDBFile = file;
+    }
 
     @Override
     public boolean addEmployee(Employee employee) {
