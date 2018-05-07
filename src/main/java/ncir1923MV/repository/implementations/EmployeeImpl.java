@@ -7,12 +7,22 @@ import ncir1923MV.repository.interfaces.EmployeeRepositoryInterface;
 import ncir1923MV.validator.EmployeeValidator;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class EmployeeImpl implements EmployeeRepositoryInterface {
 
-    private final String employeeDBFile = "employeeDB/employees.txt";
+    private String employeeDBFile = "employeeDB/employees.txt";
     private EmployeeValidator employeeValidator = new EmployeeValidator();
+
+    public EmployeeImpl() {
+    }
+
+    public EmployeeImpl(String file) {
+        this.employeeDBFile = file;
+    }
 
     @Override
     public boolean addEmployee(Employee employee) {
@@ -85,8 +95,22 @@ public class EmployeeImpl implements EmployeeRepositoryInterface {
 
     @Override
     public void modifyEmployee(Employee oldEmployee, Employee newEmployee) throws EmployeeException {
-        deleteEmployee(oldEmployee);
-        addEmployee(newEmployee);
+        File inputFile = new File(employeeDBFile);
+        Path path = inputFile.toPath();
+        List<String> fileContent = null;
+        try {
+            fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+
+            for (int i = 0; i < fileContent.size(); i++) {
+                if (fileContent.get(i).equals(oldEmployee.toString())) {
+                    fileContent.set(i, newEmployee.toString());
+                    Files.write(path, fileContent, StandardCharsets.UTF_8);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -148,4 +172,35 @@ public class EmployeeImpl implements EmployeeRepositoryInterface {
         throw new EmployeeException("Angajatul nu exista");
     }
 
+    public Employee getEmployeeByCNP(String cnp) {
+        List<Employee> employeeList = this.getEmployeeList();
+        for (Employee _employee : employeeList) {
+            if (_employee.getCnp().equals(cnp)) {
+                return _employee;
+            }
+        }
+        return null;
+    }
+
+    private void updateFile(List<Employee> employeeList) {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(employeeDBFile, false));
+            if (null != employeeList) {
+                for (Employee employee : employeeList) {
+                    bw.write(employee.toString());
+                    bw.newLine();
+                }
+            }else {
+                bw.write("");
+            }
+            bw.close();
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clear(){
+        updateFile(null);
+    }
 }
