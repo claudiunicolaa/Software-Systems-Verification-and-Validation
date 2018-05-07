@@ -182,4 +182,25 @@ public class EmployeeImpl implements EmployeeRepositoryInterface {
         return null;
     }
 
+    private void updateFile(List<Employee> employeeList) {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(employeeDBFile, false));
+            if (null != employeeList) {
+                for (Employee employee : employeeList) {
+                    bw.write(employee.toString());
+                    bw.newLine();
+                }
+            }else {
+                bw.write("");
+            }
+            bw.close();
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clear(){
+        updateFile(null);
+    }
 }
